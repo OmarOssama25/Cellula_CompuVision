@@ -3,20 +3,6 @@ import tensorflow as tf
 from PIL import Image
 import numpy as np
 
-# Set the page configuration (including theme)
-st.set_page_config(
-    page_title="Teeth Disease Classification",
-    layout="wide",
-    initial_sidebar_state="expanded",
-    theme={
-        "base": "dark",
-        "backgroundColor": "#1f3c75",
-        "secondaryBackgroundColor": "#000000",
-        "textColor": "#ffffff",
-        "font": "sans serif"
-    }
-)
-
 # Load the model
 model = tf.keras.models.load_model('teeth_classification_model.h5')
 
