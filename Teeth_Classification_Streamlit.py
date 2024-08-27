@@ -3,6 +3,20 @@ import tensorflow as tf
 from PIL import Image
 import numpy as np
 
+# Set the page configuration (including theme)
+st.set_page_config(
+    page_title="Teeth Disease Classification",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    theme={
+        "base": "dark",
+        "backgroundColor": "#1f3c75",
+        "secondaryBackgroundColor": "#000000",
+        "textColor": "#ffffff",
+        "font": "sans serif"
+    }
+)
+
 # Load the model
 model = tf.keras.models.load_model('teeth_classification_model.h5')
 
@@ -16,13 +30,13 @@ def preprocess_image(image):
 # Class labels and descriptions
 class_labels = ['CaS', 'CoS', 'Gum', 'MC', 'OC', 'OLP', 'OT']
 class_descriptions = {
-    'CaS': 'Caries (Cavities): Destruction of tooth enamel caused by bacteria producing acids. It often results in holes or decay in the teeth.',
-    'CoS': 'Cosmetic Dentistry: Treatments aimed at improving the appearance of teeth, gums, and smile. This includes whitening, veneers, and bonding.',
-    'Gum': 'Gum Disease (Periodontal Disease): Infection and inflammation of the gums and supporting structures of the teeth, which can lead to tooth loss if untreated.',
-    'MC': 'Mouth Cancer: Malignancy that occurs in the mouth or throat. Symptoms include sores, lumps, or white/red patches in the mouth.',
-    'OC': 'Oral Candidiasis: Fungal infection in the mouth caused by Candida species, characterized by white patches on the tongue and inside of the mouth.',
-    'OLP': 'Oral Lichen Planus: A chronic inflammatory condition affecting the mucous membranes inside the mouth, presenting as white patches or painful sores.',
-    'OT': 'Other Conditions: Miscellaneous dental conditions not classified under the above categories, including trauma, unusual growths, or rare diseases.'
+    'CaS': 'Caries (Cavities): Cavities occur when tooth decay destroys the tooth\'s enamel and underlying layers. They are caused by bacteria that feed on sugars, producing acids that erode the tooth surface. Treatments include fluoride, fillings, crowns, or root canals for severe cases.',
+    'CoS': 'Cosmetic Dentistry: This includes treatments such as whitening, veneers, and bonding aimed at improving the appearance of teeth, gums, and smile. Procedures vary depending on the desired aesthetic outcome.',
+    'Gum': 'Gum Disease (Periodontal Disease): Gum disease ranges from gingivitis (mild inflammation) to periodontitis, where the infection damages tissues and bones supporting the teeth. Early detection and treatments like scaling, antibiotics, or surgery can prevent tooth loss.',
+    'MC': 'Mouth Cancer: Oral cancer can develop in the mouth or throat, often manifesting as persistent sores, lumps, or abnormal patches. Early detection is key to effective treatment through surgery, radiation, or chemotherapy.',
+    'OC': 'Oral Candidiasis (Thrush): A fungal infection caused by Candida species, oral thrush presents as white patches on the tongue or mouth lining. It can be treated with antifungal medications.',
+    'OLP': 'Oral Lichen Planus: A chronic inflammatory condition that affects the mucous membranes inside the mouth, causing white patches or painful sores. Treatment focuses on managing symptoms and preventing flare-ups.',
+    'OT': 'Other Conditions: This includes a range of other dental problems, such as dental abscesses (infection-induced pus pockets), impacted teeth (teeth stuck under the gum), and TMJ disorders (jaw pain).'
 }
 
 # Streamlit app
@@ -60,9 +74,6 @@ if uploaded_file is not None:
             st.subheader("Class Descriptions")
             st.write(class_descriptions[class_labels[predicted_class]])
             
-            # Optional: Display images or additional information for each class
-            # Example:
-            # st.image('path_to_image_for_each_class', caption='Class Description')
 else:
     st.info("Upload an image to classify.")
 
