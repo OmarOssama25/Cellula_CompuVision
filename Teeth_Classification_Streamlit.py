@@ -2,32 +2,9 @@ import streamlit as st
 import tensorflow as tf
 from PIL import Image
 import numpy as np
-import requests
-import os
-
-# Function to download the model from Google Drive
-def download_model(url, destination_file_name):
-    response = requests.get(url, stream=True)
-    with open(destination_file_name, 'wb') as f:
-        for chunk in response.iter_content(chunk_size=8192):
-            f.write(chunk)
-
-# Path to save the downloaded model
-model_path = 'teeth_classification_model.h5'  # Use relative path
-model_url = 'https://drive.google.com/uc?export=download&id=1MSsULGhzoW8W1mpozWedAO-ABZdxMPxr'
-
-# Download the model file if it does not exist
-if not os.path.exists(model_path):
-    st.write("Downloading the model...")
-    download_model(model_url, model_path)
 
 # Load the model
-try:
-    model = tf.keras.models.load_model(model_path)
-    st.success('Model loaded successfully.')
-except OSError as e:
-    st.error(f'Error loading model: {e}')
-    st.stop()  # Stop the app if the model cannot be loaded
+model = tf.keras.models.load_model('teeth_classification_model.h5')
 
 # Preprocess function
 def preprocess_image(image):
@@ -84,6 +61,8 @@ if uploaded_file is not None:
             st.write(class_descriptions[class_labels[predicted_class]])
             
             # Optional: Display images or additional information for each class
+            # Example:
+            # st.image('path_to_image_for_each_class', caption='Class Description')
 else:
     st.info("Upload an image to classify.")
 
