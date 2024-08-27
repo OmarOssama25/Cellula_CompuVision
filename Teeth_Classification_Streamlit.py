@@ -13,10 +13,10 @@ def download_model(url, destination_file_name):
             f.write(chunk)
 
 # Path to save the downloaded model
-model_path = r'C:\Users\HP\Desktop\Teeth_Classification_Streamlit\teeth_classification_model.h5'
+model_path = 'teeth_classification_model.h5'  # Use relative path
 model_url = 'https://drive.google.com/uc?export=download&id=1MSsULGhzoW8W1mpozWedAO-ABZdxMPxr'
 
-# Download the model file
+# Download the model file if it does not exist
 if not os.path.exists(model_path):
     st.write("Downloading the model...")
     download_model(model_url, model_path)
@@ -28,7 +28,7 @@ try:
 except OSError as e:
     st.error(f'Error loading model: {e}')
     st.stop()  # Stop the app if the model cannot be loaded
-    
+
 # Preprocess function
 def preprocess_image(image):
     image = image.resize((150, 150))
@@ -84,8 +84,6 @@ if uploaded_file is not None:
             st.write(class_descriptions[class_labels[predicted_class]])
             
             # Optional: Display images or additional information for each class
-            # Example:
-            # st.image('path_to_image_for_each_class', caption='Class Description')
 else:
     st.info("Upload an image to classify.")
 
