@@ -8,7 +8,7 @@ model = tf.keras.models.load_model('teeth_classification_model.h5')
 
 # Preprocess function
 def preprocess_image(image):
-    image = image.resize((150, 150))
+    image = image.resize((150, 150))  # Resize for model input
     image = np.array(image) / 255.0
     image = np.expand_dims(image, axis=0)
     return image
@@ -32,9 +32,12 @@ st.write("Upload an image to classify and get detailed predictions.")
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
-    # Display uploaded image
+    # Open the uploaded image
     image = Image.open(uploaded_file)
-    st.image(image, caption='Uploaded Image', use_column_width=True)
+    
+    # Resize the image for display
+    display_image = image.resize((100, 100))
+    st.image(display_image, caption='Uploaded Image (100x100)', use_column_width=False)
     
     # Show a spinner while processing
     with st.spinner('Classifying image...'):
